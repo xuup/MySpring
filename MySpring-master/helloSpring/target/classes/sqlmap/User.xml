@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.coco.dao.UserDao">
+	<insert id="insertUser" parameterType="com.coco.dto.UserDto">
+		insert into user
+		(
+			id,
+			user_name,
+			password,
+			md_password,
+			first_name,
+			second_name,
+			email,
+			is_active,
+			create_time,
+			avatar
+		)values
+		(
+			#{id},
+			#{userName},
+			#{password},
+			#{mdPassword},
+			#{firstName},
+			#{secondName},
+			#{email},
+			#{isActive},
+			#{createTime},
+			#{avatar}
+		)
+	</insert>
+</mapper>
