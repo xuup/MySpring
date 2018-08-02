@@ -46,10 +46,9 @@ public class CocoService {
 		return count;
 	}
 	
-	/*@RequestMapping("list2")
-	public List list2(CocoVo cocoVo){
-		List<CocoDto> list = cocoDao.list(cocoVo);
-		return list;
-	}*/
+	public CocoDto selectById(String id){
+		CocoDto cocoDto = cocoDao.selectById(id);
+		return cocoDto;
+	}
 	
 }

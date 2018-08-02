@@ -2,6 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.coco.dao.CocoDaoInterface">
 
+	<sql id="coco_test2_column_list">
+		t.id as id,
+		t.wareId as wareId,
+		t.picPath as picpath
+	</sql>
+	
 	<insert id="insert" parameterType="com.coco.dto.CocoDto">
 		insert into coco_test2
 		(
@@ -21,6 +27,13 @@
            <if test="limit != null and offset !=null">
            		limit #{offset},#{limit}
            </if>
+	</select>
+	
+	<select id="selectById" resultType="com.coco.dto.CocoDto">
+		select 
+			<include refid="coco_test2_column_list"/>
+		from coco_test2 t 
+		where t.id = #{id}
 	</select>
 	
 	<select id="getCount" parameterType="com.coco.dto.CocoDto" resultType="int">

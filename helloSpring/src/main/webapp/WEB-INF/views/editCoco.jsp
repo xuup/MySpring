@@ -71,7 +71,7 @@
 				title:"operation",
 			 	formatter:function(value,row,index){
                     var element = 
-                    '<a class="edit" onclick="editViewById(118)" data-id="'+row.id +'">编辑</a> ' + 
+                    "<a class='edit' onclick='editViewById("+value+",'edit')' data-id='"+row.id +"'>编辑</a> " + 
                     "<a class='edit' onclick='editViewById("+value+",'view')' data-id='"+row.id +"'>查看</a> " +
                     "<a class='delet' data-id='"+row.id +"'>删除</a> ";
                     return element;  
@@ -86,15 +86,15 @@
 
 		});
 		
+		
+		function editViewById(data, type){
+			console.log("data:"+ data+",type="+ type);
+			
+			window.location.href = "${ctx}/cocoTest/edit?data="+data+"&type="+type;
+			
+		}
+		
 	});
-	
-	function editViewById(data, type){
-		console.log("data:"+ data+",type="+ type);
-		
-		window.location.href = "${ctx}/cocoTest/edit?id="+data+"&type="+type;
-		
-	}
-	
 </script>
 
 <body>
@@ -126,9 +126,29 @@
 		
 		<div class="col-sm-8">
 			<h1>你好，世界！${ctx }</h1>
-			<div>
-				<table class="table" id="cocoTable">
-				</table>
+			<div class="row reg_form">
+				<div class="col-sm-4">
+					id
+				</div>
+				<div class="col-sm-4">
+					<input type="text" name="id" id="id" class="form-control" value="${cocoDto.id}"/>
+				</div>
+			</div>
+			<div class="row reg_form">
+				<div class="col-sm-4">
+					wareId
+				</div>
+				<div class="col-sm-4">
+					<input type="text" name="userName" id="userName" class="form-control" value="${cocoDto.wareId}"/>
+				</div>
+			</div>
+			<div class="row reg_form">
+				<div class="col-sm-4">
+					picPath
+				</div>
+				<div class="col-sm-4">
+					<input type="text" name="userName" id="userName" class="form-control" value="${cocoDto.picPath}"/>
+				</div>
 			</div>
 			
 		</div>

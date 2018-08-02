@@ -4,7 +4,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 
-public final class coco_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class editCoco_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -142,7 +142,7 @@ public final class coco_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\t\t\t\ttitle:\"operation\",\r\n");
       out.write("\t\t\t \tformatter:function(value,row,index){\r\n");
       out.write("                    var element = \r\n");
-      out.write("                    '<a class=\"edit\" onclick=\"editViewById(118)\" data-id=\"'+row.id +'\">编辑</a> ' + \r\n");
+      out.write("                    \"<a class='edit' onclick='editViewById(\"+value+\",'edit')' data-id='\"+row.id +\"'>编辑</a> \" + \r\n");
       out.write("                    \"<a class='edit' onclick='editViewById(\"+value+\",'view')' data-id='\"+row.id +\"'>查看</a> \" +\r\n");
       out.write("                    \"<a class='delet' data-id='\"+row.id +\"'>删除</a> \";\r\n");
       out.write("                    return element;  \r\n");
@@ -157,17 +157,17 @@ public final class coco_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\r\n");
       out.write("\t\t});\r\n");
       out.write("\t\t\r\n");
-      out.write("\t});\r\n");
-      out.write("\t\r\n");
-      out.write("\tfunction editViewById(data, type){\r\n");
-      out.write("\t\tconsole.log(\"data:\"+ data+\",type=\"+ type);\r\n");
       out.write("\t\t\r\n");
-      out.write("\t\twindow.location.href = \"");
+      out.write("\t\tfunction editViewById(data, type){\r\n");
+      out.write("\t\t\tconsole.log(\"data:\"+ data+\",type=\"+ type);\r\n");
+      out.write("\t\t\t\r\n");
+      out.write("\t\t\twindow.location.href = \"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${ctx}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
-      out.write("/cocoTest/edit?id=\"+data+\"&type=\"+type;\r\n");
+      out.write("/cocoTest/edit?data=\"+data+\"&type=\"+type;\r\n");
+      out.write("\t\t\t\r\n");
+      out.write("\t\t}\r\n");
       out.write("\t\t\r\n");
-      out.write("\t}\r\n");
-      out.write("\t\r\n");
+      out.write("\t});\r\n");
       out.write("</script>\r\n");
       out.write("\r\n");
       out.write("<body>\r\n");
@@ -201,9 +201,35 @@ public final class coco_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\t\t\t<h1>你好，世界！");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${ctx }", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
       out.write("</h1>\r\n");
-      out.write("\t\t\t<div>\r\n");
-      out.write("\t\t\t\t<table class=\"table\" id=\"cocoTable\">\r\n");
-      out.write("\t\t\t\t</table>\r\n");
+      out.write("\t\t\t<div class=\"row reg_form\">\r\n");
+      out.write("\t\t\t\t<div class=\"col-sm-4\">\r\n");
+      out.write("\t\t\t\t\tid\r\n");
+      out.write("\t\t\t\t</div>\r\n");
+      out.write("\t\t\t\t<div class=\"col-sm-4\">\r\n");
+      out.write("\t\t\t\t\t<input type=\"text\" name=\"id\" id=\"id\" class=\"form-control\" value=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${cocoDto.id}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
+      out.write("\"/>\r\n");
+      out.write("\t\t\t\t</div>\r\n");
+      out.write("\t\t\t</div>\r\n");
+      out.write("\t\t\t<div class=\"row reg_form\">\r\n");
+      out.write("\t\t\t\t<div class=\"col-sm-4\">\r\n");
+      out.write("\t\t\t\t\twareId\r\n");
+      out.write("\t\t\t\t</div>\r\n");
+      out.write("\t\t\t\t<div class=\"col-sm-4\">\r\n");
+      out.write("\t\t\t\t\t<input type=\"text\" name=\"userName\" id=\"userName\" class=\"form-control\" value=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${cocoDto.wareId}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
+      out.write("\"/>\r\n");
+      out.write("\t\t\t\t</div>\r\n");
+      out.write("\t\t\t</div>\r\n");
+      out.write("\t\t\t<div class=\"row reg_form\">\r\n");
+      out.write("\t\t\t\t<div class=\"col-sm-4\">\r\n");
+      out.write("\t\t\t\t\tpicPath\r\n");
+      out.write("\t\t\t\t</div>\r\n");
+      out.write("\t\t\t\t<div class=\"col-sm-4\">\r\n");
+      out.write("\t\t\t\t\t<input type=\"text\" name=\"userName\" id=\"userName\" class=\"form-control\" value=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${cocoDto.picPath}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
+      out.write("\"/>\r\n");
+      out.write("\t\t\t\t</div>\r\n");
       out.write("\t\t\t</div>\r\n");
       out.write("\t\t\t\r\n");
       out.write("\t\t</div>\r\n");
@@ -236,10 +262,10 @@ public final class coco_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.taglibs.standard.tag.rt.core.SetTag _jspx_th_c_005fset_005f0 = (org.apache.taglibs.standard.tag.rt.core.SetTag) _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.SetTag.class);
     _jspx_th_c_005fset_005f0.setPageContext(_jspx_page_context);
     _jspx_th_c_005fset_005f0.setParent(null);
-    // /WEB-INF/views/coco.jsp(5,0) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/views/editCoco.jsp(5,0) name = var type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fset_005f0.setVar("ctx");
-    // /WEB-INF/views/coco.jsp(5,0) name = value type = javax.el.ValueExpression reqTime = true required = false fragment = false deferredValue = true expectedTypeName = java.lang.Object deferredMethod = false methodSignature = null
-    _jspx_th_c_005fset_005f0.setValue(new org.apache.jasper.el.JspValueExpression("/WEB-INF/views/coco.jsp(5,0) '${pageContext.request.contextPath}'",_el_expressionfactory.createValueExpression(_jspx_page_context.getELContext(),"${pageContext.request.contextPath}",java.lang.Object.class)).getValue(_jspx_page_context.getELContext()));
+    // /WEB-INF/views/editCoco.jsp(5,0) name = value type = javax.el.ValueExpression reqTime = true required = false fragment = false deferredValue = true expectedTypeName = java.lang.Object deferredMethod = false methodSignature = null
+    _jspx_th_c_005fset_005f0.setValue(new org.apache.jasper.el.JspValueExpression("/WEB-INF/views/editCoco.jsp(5,0) '${pageContext.request.contextPath}'",_el_expressionfactory.createValueExpression(_jspx_page_context.getELContext(),"${pageContext.request.contextPath}",java.lang.Object.class)).getValue(_jspx_page_context.getELContext()));
     int _jspx_eval_c_005fset_005f0 = _jspx_th_c_005fset_005f0.doStartTag();
     if (_jspx_th_c_005fset_005f0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
       _005fjspx_005ftagPool_005fc_005fset_0026_005fvar_005fvalue_005fnobody.reuse(_jspx_th_c_005fset_005f0);

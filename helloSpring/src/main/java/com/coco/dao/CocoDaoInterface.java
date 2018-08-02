@@ -11,4 +11,6 @@ public interface CocoDaoInterface {
 	public List<CocoDto> list(CocoDto coco);
 	
 	public int getCount(CocoDto coco);
+	
+	public CocoDto selectById(String id);
 }

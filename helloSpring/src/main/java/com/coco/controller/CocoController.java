@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -59,26 +60,12 @@ public class CocoController {
 		return map;
 	}
 	
-	
-	/*@ResponseBody
-	@RequestMapping("list2")
-	public CocoVo list2(CocoVo cvo){
-		PaginationUtil.paginationHandleInf(cvo);
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		System.out.println("------begin------"+cvo.getBegin());
-		
-		List<CocoDto> list = service.list2(cvo);
-		
-		System.out.println("------end--------"+cvo.getPage());
-		
-		cvo.setRows(list);
-		cvo.setTotal(6);
-		
-		PaginationUtil.paginationHandle(cvo);
-		
-		return cvo;
-	}*/
+	@RequestMapping("edit")
+	public String edit(String id,String data,ModelMap modelMap){
+		CocoDto cocoDto = new CocoDto();
+		cocoDto = service.selectById(id);
+		modelMap.put("cocoDto", cocoDto);
+		return "editCoco";
+	}
 	
 }
