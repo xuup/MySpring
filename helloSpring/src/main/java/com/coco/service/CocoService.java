@@ -51,4 +51,13 @@ public class CocoService {
 		return cocoDto;
 	}
 	
+	
+	public void updateById(CocoDto cocoDto){
+		cocoDao.updateById(cocoDto);
+	}
+	
+	public void deleteById(String id){
+		cocoDao.deleteById(id);
+	}
+	
 }

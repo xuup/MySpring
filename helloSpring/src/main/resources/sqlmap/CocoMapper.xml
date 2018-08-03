@@ -5,7 +5,7 @@
 	<sql id="coco_test2_column_list">
 		t.id as id,
 		t.wareId as wareId,
-		t.picPath as picpath
+		t.picPath as picPath
 	</sql>
 	
 	<insert id="insert" parameterType="com.coco.dto.CocoDto">
@@ -39,6 +39,22 @@
 	<select id="getCount" parameterType="com.coco.dto.CocoDto" resultType="int">
 		select count(1) from coco_test2 where 1=1;
 	</select>
+	
+	<update id="updateById" parameterType="com.coco.dto.CocoDto">
+		update coco_test2 
+		set 
+			<if test="wareId !=null">
+				wareId = #{wareId},
+			</if>
+			<if test="picPath !=null">
+				picPath = #{picPath}
+			</if>
+		where id = #{id}
+	</update>
+	
+	<delete id="deleteById">
+	    delete from coco_test2  where id = #{id}
+	</delete>
 
 
 

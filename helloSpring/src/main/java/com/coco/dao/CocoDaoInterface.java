@@ -13,4 +13,8 @@ public interface CocoDaoInterface {
 	public int getCount(CocoDto coco);
 	
 	public CocoDto selectById(String id);
+	
+	public void updateById(CocoDto cocoDto);
+	
+	public void deleteById(String id);
 }

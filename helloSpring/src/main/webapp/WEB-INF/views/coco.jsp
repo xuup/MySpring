@@ -24,8 +24,13 @@
 
 <script>
 	$(document).ready(function(){
-		console.log("-----");
+		initList();
+	});
+	
+	
+	function initList(){
 		
+		console.log("init list-------");
 		
 		$("#cocoTable").bootstrapTable({
 			url:"${ctx}/cocoTest/list",
@@ -37,7 +42,7 @@
 			striped: true,
 			pagination: true, // 在表格底部显示分页组件，默认false
 	      	pageNumber: 1, 
-	      	pageList: [2, 5], // 设置页面可以显示的数据条数
+	      	pageList: [2, 5,10], // 设置页面可以显示的数据条数
 	     	pageSize: 4, // 页面数据条数
 			sidePagination: "server",
 			
@@ -71,9 +76,9 @@
 				title:"operation",
 			 	formatter:function(value,row,index){
                     var element = 
-                    '<a class="edit" onclick="editViewById(118)" data-id="'+row.id +'">编辑</a> ' + 
+                    '<a class="edit" onclick="editViewById('+value+')" data-id="'+row.id +'">编辑</a> ' + 
                     "<a class='edit' onclick='editViewById("+value+",'view')' data-id='"+row.id +"'>查看</a> " +
-                    "<a class='delet' data-id='"+row.id +"'>删除</a> ";
+                    '<a class="delet" onclick="deleteById('+value+')" data-id="'+row.id +'">删除</a> ';
                     return element;  
                 } 
 			}],
@@ -85,14 +90,31 @@
 	      	}
 
 		});
-		
-	});
+	}
+	
 	
 	function editViewById(data, type){
 		console.log("data:"+ data+",type="+ type);
 		
 		window.location.href = "${ctx}/cocoTest/edit?id="+data+"&type="+type;
-		
+	}
+	
+	function deleteById(data){
+		console.log("---"+data+"---");
+		$.ajax({
+			url:"${ctx}/cocoTest/delete",
+			data:{
+				"id":data
+			},
+			dataType:"json",
+			method:"post",
+			success:function(data){
+				if(data.state == "ok"){
+					alert("删除成功!");
+					$("#cocoTable").bootstrapTable('refresh');
+				}
+			}
+		});
 	}
 	
 </script>

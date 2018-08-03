@@ -23,78 +23,6 @@
 </head>
 
 <script>
-	$(document).ready(function(){
-		console.log("-----");
-		
-		
-		$("#cocoTable").bootstrapTable({
-			url:"${ctx}/cocoTest/list",
-			cache: false,
-			dataField:"rows",
-			dataType:"json",
-			method:"post",
-			contentType : "application/x-www-form-urlencoded",
-			striped: true,
-			pagination: true, // 在表格底部显示分页组件，默认false
-	      	pageNumber: 1, 
-	      	pageList: [2, 5], // 设置页面可以显示的数据条数
-	     	pageSize: 4, // 页面数据条数
-			sidePagination: "server",
-			
-			queryParams: function (params) { // 请求服务器数据时发送的参数，可以在这里添加额外的查询参数，返回false则终止请求
-
-		         var param = {
-	        		 limit: params.limit,   //页面大小
-                     offset: params.offset,  //页码	
-				 }
-			
-				 return param;
-		    },
-			
-			responseHandler: function(res) {
-		         return {
-		            "total": res.total,//总页数
-		            "rows": res.rows   //数据
-		         };
-		    },
-			columns:[{
-				field:"id",
-				title:"#"
-			},{
-				field:"wareId",
-				title:"wareId"
-			},{
-				field:"picPath",
-				title:"picPath"
-			},{
-				field:"id",
-				title:"operation",
-			 	formatter:function(value,row,index){
-                    var element = 
-                    "<a class='edit' onclick='editViewById("+value+",'edit')' data-id='"+row.id +"'>编辑</a> " + 
-                    "<a class='edit' onclick='editViewById("+value+",'view')' data-id='"+row.id +"'>查看</a> " +
-                    "<a class='delet' data-id='"+row.id +"'>删除</a> ";
-                    return element;  
-                } 
-			}],
-		 	onLoadSuccess: function(){  //加载成功时执行
-	         	   console.info("加载成功");
-	      	},
-	      	onLoadError: function(){  //加载失败时执行
-	           	 console.info("加载数据失败");
-	      	}
-
-		});
-		
-		
-		function editViewById(data, type){
-			console.log("data:"+ data+",type="+ type);
-			
-			window.location.href = "${ctx}/cocoTest/edit?data="+data+"&type="+type;
-			
-		}
-		
-	});
 </script>
 
 <body>
@@ -111,7 +39,6 @@
      </div>
    </div>
 
-<form id="reg_form" action="#">
 <div class="container">
 	<div class="row">
 		<div class="col-sm-3">
@@ -125,6 +52,7 @@
 		</div>
 		
 		<div class="col-sm-8">
+		<form id="updateForm" action="${ctx}/cocoTest/update">
 			<h1>你好，世界！${ctx }</h1>
 			<div class="row reg_form">
 				<div class="col-sm-4">
@@ -139,7 +67,7 @@
 					wareId
 				</div>
 				<div class="col-sm-4">
-					<input type="text" name="userName" id="userName" class="form-control" value="${cocoDto.wareId}"/>
+					<input type="text" name="wareId" id="wareId" class="form-control" value="${cocoDto.wareId}"/>
 				</div>
 			</div>
 			<div class="row reg_form">
@@ -147,16 +75,19 @@
 					picPath
 				</div>
 				<div class="col-sm-4">
-					<input type="text" name="userName" id="userName" class="form-control" value="${cocoDto.picPath}"/>
+					<input type="text" name="picPath" id="picPath" class="form-control" value="${cocoDto.picPath}"/>
 				</div>
 			</div>
 			
+			<div>
+				<input type="submit" name="updateBtn" id="updateBtn" class="btn" value="保存"/> 
+			</div>
+			</form>
 		</div>
 		
 	</div>
 </div>
 
-</form>
 
 
 </body>

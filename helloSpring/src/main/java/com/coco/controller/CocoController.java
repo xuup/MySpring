@@ -68,4 +68,18 @@ public class CocoController {
 		return "editCoco";
 	}
 	
+	@RequestMapping("update")
+	public String update(CocoDto cocoDto){
+		service.updateById(cocoDto);
+		return "coco";
+	}
+	
+	@ResponseBody
+	@RequestMapping("delete")
+	public Map delete(String id){
+		Map<String,Object> map = new HashMap<String,Object>();
+		service.deleteById(id);
+		map.put("state", "ok");
+		return map;
+	}
 }
