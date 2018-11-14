@@ -1,18 +1,24 @@
 package com.coco.service;
 
-import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
-import org.springframework.stereotype.Service;
-
-import com.coco.dao.UserDao;
 import com.coco.dto.UserDto;
+import com.coco.dto.UserVo;
 
-@Service
-public class UserService {
-	@Resource
-	private UserDao userDao;
+
+public interface UserService {
 	
-	public void insert(UserDto userDto){
-		userDao.insertUser(userDto);
-	}
+	public List<UserDto> searchUser(Map<String, Object> paramMap);
+	
+	public int getCount(Map<String, Object> paramMap);
+	
+	public void insertUser(UserDto userDto);
+	
+	public void updateUserById(UserDto userDto);
+	
+	public void deleteUserById(int id);
+	
+	public UserDto getUserById(int id);
+
 }

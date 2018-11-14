@@ -8,7 +8,7 @@
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>classpath:conf/test.properties</value>
+				<value>classpath:conf/test_local.properties</value>
 			</list>
 		</property>
 	</bean>
@@ -37,6 +37,9 @@
         <property name="basePackage" value="com.coco.dao"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>  
+    
+    <bean id="mapper" class="org.dozer.spring.DozerBeanMapperFactoryBean">
+    </bean>
 
        
 </beans>

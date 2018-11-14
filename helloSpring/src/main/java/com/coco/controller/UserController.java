@@ -2,18 +2,24 @@ package com.coco.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
+import org.dozer.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.coco.controller.common.BaseController;
 import com.coco.dto.UserDto;
+import com.coco.dto.UserVo;
 import com.coco.service.UserService;
 
 
@@ -24,10 +30,60 @@ public class UserController extends BaseController{
 	@Resource
 	private UserService userService;
 	
+	
+	@Autowired
+	private Mapper mapper;
+	
+	
+	@RequestMapping("listUser")
+	public String listUser(){
+		return "/user/listUser";
+	}
+	
+	
+	@RequestMapping("searchUser")
+	@ResponseBody
+	public Map<String, Object> searchUser(UserVo userVo){
+		
+		Logger logger = Logger.getLogger("searchUser");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		Map<String, Object> queryMap = new HashMap<String, Object>();
+		queryMap.put("limit", userVo.getLimit());
+		queryMap.put("offset", userVo.getOffset());
+		
+		logger.info("init userList begin...");
+		List<UserDto> list = userService.searchUser(queryMap);
+		logger.info("init userList end...");
+		
+		int count = userService.getCount(queryMap);
+		map.put("rows", list);
+		map.put("total", count);
+		return map;
+	}
+	
 	@RequestMapping("addUser")
 	public String addUser(ModelMap mpdelMap){
 		mpdelMap.put("context", "context");
 		return "/user/addUser";
+	}
+	
+	
+	@RequestMapping("getUserById")
+	@ResponseBody
+	public UserDto getUserById(String data){
+		int id = Integer.valueOf(data);
+		return userService.getUserById(id);
+	}
+	
+	
+	@RequestMapping("updateUserById")
+	@ResponseBody
+	public String updateUserById(UserVo userVo){
+		UserDto userDto = mapper.map(userVo, UserDto.class);
+		userService.updateUserById(userDto);
+		return "success";
 	}
 	
 	@RequestMapping("insertUser")
@@ -36,11 +92,19 @@ public class UserController extends BaseController{
 		System.out.println("--------begin--------");
 		
 		
-		userService.insert(userDto);
+		userService.insertUser(userDto);
 		
 		System.out.println("--------end--------");
 		
 		
+	}
+	
+	
+	@RequestMapping("deleteUserById")
+	@ResponseBody
+	public String deleteUserById(String id){
+		userService.deleteUserById(Integer.valueOf(id));
+		return "ok";
 	}
 	
 	
@@ -53,7 +117,7 @@ public class UserController extends BaseController{
 		System.out.println("--------begin2--------");
 		
 		
-		userService.insert(userDto);
+		userService.insertUser(userDto);
 		
 		System.out.println("--------end2--------");
 		
