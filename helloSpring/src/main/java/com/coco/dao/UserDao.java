@@ -19,4 +19,6 @@ public interface UserDao {
 	
 	public void updateUserById(UserDto userDto);
 	
+	public UserDto searchUserByPro(UserDto userDto);
+	
 }

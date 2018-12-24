@@ -20,5 +20,7 @@ public interface UserService {
 	public void deleteUserById(int id);
 	
 	public UserDto getUserById(int id);
+	
+	public UserDto searchUserByPro(UserDto userDto);
 
 }
