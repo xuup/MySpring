@@ -24,82 +24,10 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		initArticle();
-		initPageNumber();
 		initLabels();
 		initHotArticle();
 	});
 	
-	function initArticle(){
-		
-		//清空之前的内容 
-		$("#context").empty();
-		
-		$.ajax({
-			url:'${ctx}/article/getArticle',
-			method:"post",
-			dataType:"json",
-			data:{
-				"limit":"3",
-				"offSet":$("#curentPage").val()
-			},
-			success:function(res){
-				console.log("加载成功");
-				console.log(res);
-				//动态生成文章内容 
-				console.log(res.length);
-				html = '';
-				className = '';
-				className1 = '';
-				for(i=0;i<res.length;i++){
-					console.log(i);
-					if(i==0){
-						beforehtml = "<a href='./contents/305/2306.html' target='_blank' class='iu'>25</a>";
-						className = 'zaiyao';
-						className1 = 'mecc';
-					}else{
-						beforehtml = '';
-						className = 'zuiyao';
-						className1 = 'mucc';
-					}
-					html = "<section class='list'><div class="+className1+">"+beforehtml+"<h2 class='mecctitle'><a href='javascript:void(0);' onclick='detail("+res[i].id+")'>"+ res[i].title +"</a></h2>" + 
-					"<address class='meccaddress'><time>"+ res[i].createTime +"</time> - <a href=''>"+res[i].categoryName+"</a></address> </div>"+
-					"<div class="+className+">"+res[i].remark+"</div><div class='clear'></div></section> "
-					$("#context").append(html);                          
-				}
-				pageHtml = "<div class='posts-nav'><span class='page-numbers current'>1</span><a class='page-numbers' href=''>2</s></div>"
-				pageHtml1 = "<div class='posts-nav' id='posts-nav'></div>";
-				//$("#container").append("<div id='pageTool'>123213</div>");
-				
-			},
-			error:function(){
-				alert("获取内容异常!");
-			}
-		});
-	}
-	
-	
-	function initPageNumber(){
-		var total = $("#total").val();
-		var maxNum = total / 3;    //最大页码数 
-		var tempNum = total % 3;
-		if(tempNum > 0){
-			maxNum += 1;
-		}
-		
-		var currentNum = $("#curentPage").val();		//当前页码数 
-		
-		var page = new Paging();
-		page.init({	target: $('#pageTool'), pagesize: maxNum, count: total, current:1,callback: function (pagecount, size, count) {
-				console.log(arguments)
-				alert('当前第 ' + pagecount + '页,每页 ' + size + '条,总页数：' + count + '页');
-				//ajax获取页面内容 
-				$("#curentPage").val((pagecount-1)*3);
-				initArticle();
-				page.render({ count: total, current: pagecount });
-			}
-		});
-	}
 	
 	
 	function initLabels(){
@@ -149,18 +77,12 @@
 		});
 	}
 	
-	function detail(articleId){
-		console.log(articleId);
-		window.location.href = "${ctx}/article/detail?articleId=" + articleId;
-	}
-	
-	
 </script>
 
 
 <body>
 <!-- head -->
-<%@ include file="./base/head.jsp"%>
+<%@ include file="../base/head.jsp"%>
 
 
 <div id="main">
@@ -168,18 +90,32 @@
 	<input type="hidden" name="curentPage" id="curentPage" value="${curentPage}"/>
 	<!-- container begin -->
 	<div id="container">
-		<div id="context"></div>
-		<div id='pageTool' class='posts-nav'></div>
+		<article class="content">
+          <header class="contenttitle">
+            <h1 class="mscctitle"> <a href="javascript:;"> ${article.title} </a> </h1>
+            <address class="msccaddress ">
+              <time> ${article.createTime}</time>
+              -
+              ${article.categoryName}
+            </address>
+          </header>
+          <div class="content-text"> 
+          	${article.context}
+          <!--content_text-->
+          <div class="zhuan">
+            <p>本文转载 " 36氪 整理 "<br><br>原文地址 " http://36kr.com/p/5089494.html "</p> 
+          </div>
+        </article>
 	</div>
 	
 	<!-- container end -->
 	
-	<%@ include file="./base/rightSide.jsp"%>
+	<%@ include file="../base/rightSide.jsp"%>
 	
 </div>
 <!-- main end -->
 
-<%@ include file="./base/foot.jsp"%>
+<%@ include file="../base/foot.jsp"%>
 
 </body>
 </html>
