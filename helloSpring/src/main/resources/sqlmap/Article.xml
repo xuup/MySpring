@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.coco.dao.ArticleDao">
+	
+	<select id="selectArticle" resultType="com.coco.dto.ArticleDto">
+		select t.id as id,
+		t.title as title,
+		t.abstract as remark,
+		t.category as categoryName
+		 from article t, category r where 1=1 and t.category = r.category_id
+		 <if test="title != null and title != '' ">
+		 	and t.title = #{title}
+		 </if>
+		 <if test="id != null and id != '' ">
+		 	and t.id = #{id}
+		 </if>
+		<if test="limit != null and offset !=null">
+           		limit #{offset},#{limit}
+        </if>
+	</select>
+	
+	
+	<select id="selectArticleById" resultType="com.coco.dto.ArticleDto">
+		select t.id as id,
+		t.title as title,
+		t.context as context
+		 from article t where 1=1
+		 <if test="_parameter != null ">
+		 	and t.id = #{id}
+		 </if>
+	</select>
+	
+	<select id="countArticle" resultType="int">
+		select count(1) from article where 1=1
+	</select>
+	
+	
+	<insert id="saveArticle" useGeneratedKeys="true" keyProperty="userId" parameterType="com.coco.dto.ArticleDto">
+		insert into article
+		(	
+			title,
+			context,
+			create_time
+		)values
+		(	
+			#{title},
+			#{context},
+			#{createTime}
+		)
+	</insert>
+	
+</mapper>

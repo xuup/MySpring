@@ -118,8 +118,35 @@
 	    <artifactId>logback-classic</artifactId>
 	    <version>1.2.3</version>
 	</dependency>
+	
+	<dependency>
+	    <groupId>org.projectlombok</groupId>
+	    <artifactId>lombok</artifactId>
+	    <version>1.16.18</version>
+	    <scope>provided</scope>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.aspectj</groupId>
+	    <artifactId>aspectjrt</artifactId>
+	    <version>1.6.11</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.aspectj</groupId>
+	    <artifactId>aspectjweaver</artifactId>
+	    <version>1.6.11</version>
+	</dependency>
+    
+    <!-- https://mvnrepository.com/artifact/cglib/cglib -->
+	<dependency>
+	    <groupId>cglib</groupId>
+	    <artifactId>cglib</artifactId>
+	    <version>2.2.2</version>
+	</dependency>
     
   </dependencies>
+  
   <build>
     <finalName>helloSpring</finalName>
   </build>
