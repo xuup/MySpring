@@ -48,7 +48,7 @@
 			$.ajax({
 				url:"${ctx}/category/insertCategory",
 				type:"post",
-				dataType:"json",
+				dataType:"text",
 				data:{
 					"categoryName":$("#categoryName_add").val(),
 					"categoryOrder":$("#categoryOrder_add").val()
@@ -57,7 +57,24 @@
 					$("#categoryTable").bootstrapTable('refresh');
 				}
 			});
-		})
+		});
+		
+		$("#btn_update").bind("click", function(){
+			$.ajax({
+				url:"${ctx}/category/updateCategory",
+				type:"post",
+				dataType:"text",
+				async:false,
+				data:{
+					"categoryId":$("#categoryId_edit").val(),
+					"categoryName":$("#categoryName_edit").val(),
+					"categoryOrder":$("#categoryOrder_edit").val()
+				},
+				success:function(res){
+					$("#categoryTable").bootstrapTable('refresh');
+				}
+			});
+		});
 		
 	});
 	
@@ -87,12 +104,12 @@
 					field:"categoryName",
 					title:"标签名"
 				},{
-					field:"id",
+					field:"categoryId",
 					title:"操作",
 					formatter:function(value,row,index){
 	                    var element = 
-	                    '<a class="edit" onclick="editViewById('+value+',true)" data-id="'+row.id +'">编辑</a> ' + 
-	                    "<a class='edit' onclick='editViewById("+value+",false)' data-id='"+row.id +"'>查看</a> " +
+	                    '<a class="edit" onclick="editById('+value+')" data-id="'+row.id +'">编辑</a> ' + 
+	                    '<a class="edit" onclick="viewById('+value+')" data-id="'+row.id +'">查看</a> ' +
 	                    '<a class="delet" onclick="deleteById('+value+')" data-id="'+row.id +'">删除</a> ';
 	                    return element;  
 	                },
@@ -119,6 +136,49 @@
 		return otableInit;
 	}
 	
+	
+	function viewById(categoryId){
+		$.ajax({
+			url:'${ctx}/category/getCategoryById',
+			dataType:'json',
+			method:'post',
+			data:{
+				categoryId:categoryId
+			},
+			success:function(res){
+				$("#categoryId_edit").val(res.categoryId);
+				$("#categoryName_edit").val(res.categoryName);
+				$("#categoryOrder_edit").val(res.categoryOrder);
+				
+				
+				$("#myModalLabelEdit").text("查看");
+				$("#myModalEdit input,#btn_update").attr("disabled",true);
+				//$("#btn_update").attr("disabled",true);
+				$("#myModalEdit").modal("show");
+			}
+		});
+	}
+	
+	
+	function editById(categoryId){
+		$.ajax({
+			url:'${ctx}/category/getCategoryById',
+			dataType:'json',
+			method:'post',
+			data:{
+				categoryId:categoryId
+			},
+			success:function(res){
+				$("#categoryId_edit").val(res.categoryId);
+				$("#categoryName_edit").val(res.categoryName);
+				$("#categoryOrder_edit").val(res.categoryOrder);
+				
+				
+				$("#myModalLabelEdit").text("编辑");
+				$("#myModalEdit").modal("show");
+			}
+		});
+	}
 	
 	function editViewById(id,isEdit){
 		window.location.href = "${ctx}/article/editViewById?id=" + id + "&isEdit=" + isEdit;
@@ -150,30 +210,56 @@
 			</div>
 		</div>
 		
-		<!-- 弹出框 -->
+		<!-- 弹出框  新增-->
 		<div class="modal fade" id="myModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabelAdd">
-     	<div class="modal-dialog" role="document">
-     		<div class="modal-content">
-     			<div class="modal-header">
-     				<h4 class="modal-title" id="myModalLabelAdd">新增</h4>
-     			</div>
-     			<div class="modal-body">
-     				<div class="form-group">
-                         <label for="txt_departmentname">标签名称</label>
-                         <input type="text" name="categoryName" id="categoryName_add" class="form-control">
-                     </div>
-                     <div class="form-group">
-                        <label for="txt_parentdepartment">排序号</label>
-                        <input type="text" name="categoryOrder_add" id="categoryOrder_add" class="form-control">
-                     </div>
-     			</div>
-     			<div class="modal-footer">
-                     <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
-                     <button type="button" id="btn_add" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
-                </div>
-     		</div>
+	     	<div class="modal-dialog" role="document">
+	     		<div class="modal-content">
+	     			<div class="modal-header">
+	     				<h4 class="modal-title" id="myModalLabelAdd">新增</h4>
+	     			</div>
+	     			<div class="modal-body">
+	     				<div class="form-group">
+	                         <label for="txt_departmentname">标签名称</label>
+	                         <input type="text" name="categoryName" id="categoryName_add" class="form-control">
+	                     </div>
+	                     <div class="form-group">
+	                        <label for="txt_parentdepartment">排序号</label>
+	                        <input type="text" name="categoryOrder_add" id="categoryOrder_add" class="form-control">
+	                     </div>
+	     			</div>
+	     			<div class="modal-footer">
+	                     <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+	                     <button type="button" id="btn_add" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+	                </div>
+	     		</div>
+	     	</div>
      	</div>
-     </div>
+     	
+     	<!-- 弹出框 编辑 -->
+     	<div class="modal fade" id="myModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabelEdit">
+	     	<div class="modal-dialog" role="document">
+	     		<div class="modal-content">
+	     			<div class="modal-header">
+	     				<h4 class="modal-title" id="myModalLabelAdd">编辑</h4>
+	     			</div>
+	     			<div class="modal-body">
+	     				<input type="hidden" name="categoryId_edit" id="categoryId_edit"/>
+	     				<div class="form-group">
+	                         <label for="txt_departmentname">标签名称</label>
+	                         <input type="text" name="categoryName_edit" id="categoryName_edit" class="form-control">
+	                     </div>
+	                     <div class="form-group">
+	                        <label for="txt_parentdepartment">排序号</label>
+	                        <input type="text" name="categoryOrder_edit" id="categoryOrder_edit" class="form-control">
+	                     </div>
+	     			</div>
+	     			<div class="modal-footer">
+	                     <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+	                     <button type="button" id="btn_update" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+	                </div>
+	     		</div>
+	     	</div>
+     	</div>
 		
 </div>
 

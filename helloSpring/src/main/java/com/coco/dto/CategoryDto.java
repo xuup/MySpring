@@ -17,5 +17,5 @@ public class CategoryDto implements Serializable{
 	private String categoryName;
 	
 	private int categoryOrder;
-	
+
 }

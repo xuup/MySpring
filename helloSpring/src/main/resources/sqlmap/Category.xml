@@ -11,6 +11,29 @@
         </if>
 	</select>
 	
+	
+	<select id="selectCategoryById" resultType="com.coco.dto.CategoryDto">
+		select t.category_id as categoryId,
+		t.category_name as categoryName
+		from category t where 1=1
+		<if test="_parameter != null">
+			and t.category_id = #{categoryId}
+		</if>
+	</select>
+	
+	<update id="updateCategory" parameterType="com.coco.dto.CategoryDto">
+		update category c set
+		<if test="categoryName != null">
+			c.category_name = #{categoryName}
+		</if>
+		<if test="categoryOrder != null">
+			,c.category_order = #{categoryOrder}
+		</if>
+		where c.category_id = #{categoryId}
+	</update>
+	
+	
+	
 	<insert id="insertCategory" useGeneratedKeys="true" keyProperty="category_id">
 		insert into category (category_name, category_order) values (#{categoryName},#{categoryOrder})
 	</insert>

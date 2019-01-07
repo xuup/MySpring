@@ -41,10 +41,28 @@ public class CategoryController extends BaseController{
 	}
 	
 	
+	@ResponseBody
+	@RequestMapping("getCategoryById")
+	public CategoryDto getCategoryById(Integer categoryId){
+		CategoryDto categoryDto = new CategoryDto();
+		categoryDto = categoryService.selectCategoryById(categoryId);
+		return categoryDto;
+	}
+	
+	
 	@RequestMapping("insertCategory")
 	@ResponseBody
 	public String insertCategory(CategoryDto categoryDto){
 		categoryService.insertCategory(categoryDto);
 		return "ok";
 	}
+	
+	
+	@RequestMapping("updateCategory")
+	@ResponseBody
+	public String updateCategory(CategoryDto categoryDto){
+		categoryService.updateCategory(categoryDto);
+		return "ok";
+	}
+	
 }

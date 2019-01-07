@@ -23,8 +23,20 @@ public class CategoryServiceImpl implements CategoryService{
 		return rs;
 	}
 	
+	public CategoryDto selectCategoryById(Integer categoryId){
+		if(categoryId == null){
+			return null;
+		}
+		return categoryDao.selectCategoryById(categoryId);
+	}
+	
 	public void insertCategory(CategoryDto categoryDto){
 		categoryDao.insertCategory(categoryDto);
+	}
+	
+	
+	public void updateCategory(CategoryDto categoryDto){
+		categoryDao.updateCategory(categoryDto);
 	}
 
 }
